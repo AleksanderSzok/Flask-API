@@ -73,3 +73,46 @@ curl -X DELETE -u aleksander:szok http://aszok-api-1.herokuapp.com/text/13
 We deleted text with id=13. In Postman:
 ![alt text](https://github.com/AleksanderSzok/Flask-API/blob/main/images/postman_delete.PNG)
   
+## Deploying app on Heroku
+
+This app uses Flask and SQLAlchemy libraries, and is connected to Heroku Postgres database. To achieve that we need to do following steps:
+1. Login to heroku and create new app.
+2. Activate new python virtual environment, for ex. in PyCharm.
+3. cd to main folder and use terminal to pip install all required libraries and psycopg2.
+```
+pip install flask
+pip install flask-sqlalchemy
+pip install flask-marshmallow
+pip install marshmallow-sqlalchemy
+pip install flask-basicauth
+pip install psycopg2
+```
+4. Create requirements.txt file and Procfile:
+```
+pip freeze > requirements.txt
+echo web: gunicorn flaskapi:app > Procfile
+```
+5. Login to Heroku from PyCharm terminal and create database on Heroku:
+```
+heroku login
+heroku addons:create heroku-postgresql:hobby-dev --app aszok-api-1
+```
+6. Get database url and paste in flaskapi.py after app.config['SQLALCHEMY_DATABASE_URI'] =:
+```
+heroku config --app aszok-api-1  
+```  
+7. Change in database url 'postgres' to 'postgresql'.
+8. Follow steps on heroku page:
+```
+git add .
+git commit -m "start"
+heroku git:remote -a aszok-api-1
+git push heroku master
+```
+9. Last step is to create all tables in database. From Pycharm terminal run heroku python terminal:
+```
+heroku run python
+>> from flaskapi import db
+>> db.create_all()
+>> exit()
+```
