@@ -5,6 +5,12 @@ http://aszok-api-1.herokuapp.com/
 This is simple API to write down, return saved and edit short texts (up to 160 characters). Each text has it's own id and counter.
 It was deployed on heroku platform (instructions at the end of readme file).
 It is recommend to install JSON extension to your browser for better text display.
+Texts are stored in database:
+
+Id | Text      | Counter |
+-- |---------- | ------- |
+1  | example 1 |    0    |
+2  | example 2 |    0    |
 
 ## Methods
 ### GET method
