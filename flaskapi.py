@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy 
 from flask_marshmallow import Marshmallow 
@@ -7,8 +8,8 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gtzmjonnxitaow:a0e34e95134ba5bec7c4d824f377c5d47a80a173fb211e66f795514935fa4ddd@ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d1m76gml9toqm5'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['BASIC_AUTH_USERNAME'] = 'aleksander'
-app.config['BASIC_AUTH_PASSWORD'] = 'szok'
+app.config['BASIC_AUTH_USERNAME'] = os.environ.get('BASIC_AUTH_USERNAME')
+app.config['BASIC_AUTH_PASSWORD'] = os.environ.get('BASIC_AUTH_PASSWORD')
 
 db = SQLAlchemy(app)
 marsh = Marshmallow(app)
